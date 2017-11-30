@@ -1,0 +1,7 @@
+<% layout('layout.ejs') %>
+
+<% tags.forEach(function(tag){ %>
+    <% if(tag) { %>
+       <a href="/articles/tags/<%= tag %>"><%= tag %></a> 
+    <% } %>
+<% }) %>

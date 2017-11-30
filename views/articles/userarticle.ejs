@@ -1,0 +1,30 @@
+<% layout('layout.ejs') %>
+
+<div class="article">
+    
+    <%- include ../pager.ejs %>
+
+    <% articles.forEach(function(art, i){ %>
+    <h2><a href="/articles/detail/<%= art._id %>"><%= art.title %></a></h2> 
+    <div class="author">
+        作者：<a href="/articles/user/<%= art.author %>"><%= art.author %></a> | 
+        
+        日期：<%= art.createTime  %> |
+        标签：
+        <% art.tags.forEach(function(t,i){ %>
+            <% if(t){ %>
+            <a href="/articles/tags/<%= t %>"><%= t %></a>
+            <% } %>
+        <% }) %>
+    </div> 
+    <div class="content">
+        <%= art.content.length > 100 ? art.content.substr(0,100) + '...' : art.content %>
+    </div> 
+    <div class="read">
+        阅读：<%= art.readCount %> | 
+        评论：<%= art.comments.length %>
+    </div>
+    <% }) %>
+
+    <%- include ../pager.ejs %>
+</div>

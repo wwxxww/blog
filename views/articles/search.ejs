@@ -1,0 +1,12 @@
+<% layout('layout.ejs') %>
+
+<ul class="archive">
+    <% var lastYear = 0 %>
+    <% articles.forEach(function (art) { %>
+    <% if ( lastYear != new Date(art.createTime).getFullYear() ) { %>
+    <li><h3><%= new Date(art.createTime).getFullYear() %></h3></li>
+    <% lastYear=new Date(art.createTime).getFullYear() } %>
+    <li><time><%= art.createTime.substr(0, 10) %></time></li>
+    <li><a href="/articles/detail/<%=art._id%>"><%= art.title %></a></li>
+    <% }) %>
+</ul>

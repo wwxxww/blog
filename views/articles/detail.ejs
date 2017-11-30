@@ -1,0 +1,54 @@
+<% layout('layout.ejs') %>
+
+<div class="detail">
+    <% if (user && (user.name == article.author)) { %>
+    <div class="operate">
+        <a href="/articles/edit/<%= article._id %>">编辑</a>
+        <a href="/articles/remove/<%= article._id %>">删除</a>
+    </div>
+    <% } %>
+    <div class="article">
+        <div class="author">
+            作者：<a href="/articles/user/<%= article.author %>"><%= article.author %></a> |
+            日期：<%= article.createTime %> |
+            标签：
+            <% article.tags.forEach(function (tag) { %>
+                <% if (tag) { %>
+                <a href="/articles/tags/<%= tag %>"><%= tag %></a>
+                <% } %>
+            <% }) %>
+        </div>
+        <div class="content">
+            <%- article.content %>
+        </div>
+        <div class="read">
+            阅读：<%= article.readCount %> | 评论：<%= article.comments.length %>
+        </div>
+    </div>
+    <div class="comment">
+        <% article.comments.forEach(function(comment) { %>
+        <div class="commentlist">
+            <div class="header">
+                <a href="/articles/user/<%= comment.author %>"><%= comment.author %></a> 回复于 <%= comment.createTime %>
+            </div>
+            <div class="content"><%- comment.content %></div>
+        </div>
+        <% }) %>
+        
+        <div class="postcomment">
+            <form method="post" action="/articles/comment">
+                <input type="hidden" value="<%= article._id %>" name="id">
+                <% if (user) { %>
+                姓名：<input type="text" name="author" value="<%= user.name %>" readonly/><br />
+                邮箱：<input type="text" name="email" value="<%= user.email %>" readonly/><br />
+                <% } else { %>
+                姓名：<input type="text" name="author" /><br />
+                邮箱：<input type="text" name="email" /><br />
+                <% } %>
+                网址：<input type="text" name="website" value="http://" /><br />
+                <textarea rows="5" cols="80" name="content"></textarea><br />
+                <input type="submit" value="留言" />
+            </form>
+        </div>
+    </div>
+</div>

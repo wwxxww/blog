@@ -1,0 +1,14 @@
+<% layout('layout.ejs') %>
+
+<div class="upload">
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="userlogo" multiple>
+        <button type="submit"><%= title %></button>
+    </form>
+
+    <div class="showPic">
+        <img src="<%= src %>" alt="default.jpg">
+    </div>
+
+</div>

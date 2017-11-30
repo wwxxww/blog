@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="董书华">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <% block('head') %>
+</head>
+
+<body>
+    
+    <div class="container">
+        <nav>
+            <a href="/">首页</a>
+            <a href="/articles/type">存档</a>
+            <a href="/articles/taglist">标签</a>
+            <% if(user) { %>
+            <a href="/users/upload">上传</a>
+            <a href="/articles/post">发布</a>
+            <a href="/users/logout">退出</a>
+            <% } else { %>
+            <a href="/users/login">登录</a>
+            <a href="/users/reg">注册</a>
+            <% } %>
+
+            <a href="javascript:void(0)">
+                <form action="/articles/search">
+                    <input type="text" placeholder="SEARCH" name="keyword" class="search">
+                </form>
+            </a>
+
+        </nav>
+        <div class="right">
+            <h1>
+                <%= title %>
+            </h1>
+
+            <% if(success) { %>
+                <div class="success">
+                    <%= success %>
+                </div>
+            <% } %>
+
+            <% if(err) { %>
+                <div class="err">
+                    <%= err %>
+                </div>
+            <% } %>
+
+            <%- body %>
+        </div>
+
+        <% block('footer') %>
+    </div>
+</body>
+
+</html>
